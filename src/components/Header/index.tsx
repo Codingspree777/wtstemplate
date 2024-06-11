@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import { Button } from "@mui/material";
-
 import styled from "styled-components";
+
+import Button from "../../common/button";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -11,20 +11,14 @@ const HeaderContainer = styled.div`
 
   padding: 0 20px;
   height: 50px;
-  border-bottom: 1px solid #000;
+  box-shadow: 0px 0px 10px 0px #00000015;
+  margin-bottom: 5px;
 `;
 
-const HeaderText = styled.h3`
-  color: #606060;
-`;
-
-const StyledButton = styled.button`
-  background-color: #f8f8ff;
-  border-radius: 50%;
-  border: none;
-  color: #d3d3d3;
-  width: 30px;
-  height: 30px;
+const HeaderText = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  color: RGBA(0, 0, 0, 0.87);
 `;
 
 const Header = () => {
@@ -34,7 +28,7 @@ const Header = () => {
     open && (
       <HeaderContainer>
         <HeaderText>Create a Campaign</HeaderText>
-        <StyledButton onClick={() => setOpen(false)}>X</StyledButton>
+        <Button onClick={() => setOpen(false)} />
       </HeaderContainer>
     )
   );

@@ -5,17 +5,14 @@ const NavbarContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  background-color: #454545;
-  width: 100px;
+  color: #fff;
+  background-color: #20232a;
+  width: 56px;
   height: 100vh;
 `;
 
 const Navbar = () => {
-  return (
-    <NavbarContainer>
-      <h1>Nav</h1>
-    </NavbarContainer>
-  );
+  return <NavbarContainer>Nav</NavbarContainer>;
 };
 
 export default Navbar;
