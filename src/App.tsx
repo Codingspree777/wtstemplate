@@ -1,9 +1,10 @@
 import { DateDataProvider } from "./contexts/dateDataContext";
+import MessageLayout from "./components/Layout/messageLayout";
 
 function App() {
   return (
     <DateDataProvider>
-      <div>Hello world</div>
+      <MessageLayout />
     </DateDataProvider>
   );
 }
