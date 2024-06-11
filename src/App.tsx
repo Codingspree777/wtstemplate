@@ -1,10 +1,9 @@
-import DateDisplay from "./components/dateDataDisplay";
 import { DateDataProvider } from "./contexts/dateDataContext";
 
 function App() {
   return (
     <DateDataProvider>
-      <DateDisplay />
+      <div>Hello world</div>
     </DateDataProvider>
   );
 }
