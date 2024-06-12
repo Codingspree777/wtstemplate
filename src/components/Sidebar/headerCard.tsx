@@ -1,4 +1,6 @@
 import { useState } from "react";
+
+import { Button } from "@mui/material";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Switch from "@mui/material/Switch";
@@ -32,7 +34,7 @@ const ContentContainer = styled.div`
   gap: 12px;
 
   align-items: center;
-  height: 373px;
+  padding-bottom: 16px;
 `;
 
 const SelectContainer = styled.div``;
@@ -50,12 +52,48 @@ const Caption = styled.div`
   color: RGBA(0, 0, 0, 0.54);
 `;
 
+const ButtonContainer = styled.div`
+  width: 264px;
+  position: relative;
+  text-align: left;
+  margin-bottom: 40px;
+`;
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
+
+const HeaderTipBox = styled.div`
+  width: 232px;
+  height: 163px
+  border-raidus: 8px;
+  background-color: #f5f5f5;
+  padding: 16px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 17px;
+  leter-spacing: 0.15px;
+  color: RGBA(0, 0, 0, 0.54);
+`;
+
 const HeaderCard = ({ name, id }: { name: string; id: string }) => {
   const [checked, setChecked] = useState(false);
   const [selectValue, setSelectValue] = useState("Image");
 
   const handleChange = () => {
     setChecked(!checked);
+  };
+
+  const handleFile = (event: any) => {
+    let image = event.target.files[0];
   };
 
   return (
@@ -80,6 +118,22 @@ const HeaderCard = ({ name, id }: { name: string; id: string }) => {
             </StyledSelect>
           </SelectContainer>
           <Caption>Image size recommendation: 800 x 418 pixel.</Caption>
+          <ButtonContainer>
+            <Button
+              variant="outlined"
+              component="label"
+              role={undefined}
+              sx={{ position: "absolute" }}
+            >
+              UPLOAD IMAGE
+              <VisuallyHiddenInput type="file" onChange={handleFile} />
+            </Button>
+          </ButtonContainer>
+          <HeaderTipBox>
+            Images can enrich the message experience and help maintain
+            engagement. Use eye-catching images that summarize the message (eg
+            discounts, gifts etc.)
+          </HeaderTipBox>
         </ContentContainer>
       )}
     </CardContainer>
