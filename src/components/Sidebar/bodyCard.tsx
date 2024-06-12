@@ -19,7 +19,6 @@ const CardContainer = styled.div`
 
   border: 1px solid RGBA(0, 0, 0, 0.12);
   border-radius: 10px;
-  padding-bottom: 16px;
 `;
 
 const HeaderContainer = styled.div`
@@ -41,6 +40,10 @@ const Required = styled.div`
   font-weight: 700;
 `;
 
+const EditorContainer = styled.div`
+  padding: 16px 24px;
+`;
+
 const BodyCard = ({ name, id }: { name: string; id: string }) => {
   return (
     <CardContainer id={id}>
@@ -48,20 +51,33 @@ const BodyCard = ({ name, id }: { name: string; id: string }) => {
         <Text>{name}</Text>
         <Required>REQUIRED</Required>
       </HeaderContainer>
-      <CKEditorContext context={Context}>
-        <CKEditor
-          editor={ClassicEditor}
-          config={{
-            plugins: [Paragraph, Bold, Italic, Essentials, Strikethrough, Code],
-            toolbar: ["bold", "italic", "strikethrough", "code"],
-          }}
-          data="<p>Hello from the first editor working with the context!</p>"
-          onReady={(editor) => {
-            // You can store the "editor" and use when it is needed.
-            console.log("Editor1 is ready to use!", editor);
-          }}
-        />
-      </CKEditorContext>
+      <EditorContainer>
+        <CKEditorContext context={Context}>
+          <CKEditor
+            editor={ClassicEditor}
+            config={{
+              plugins: [
+                Paragraph,
+                Bold,
+                Italic,
+                Essentials,
+                Strikethrough,
+                Code,
+              ],
+              toolbar: ["bold", "italic", "strikethrough", "code"],
+            }}
+            data="<p>Hello from the first editor working with the context!</p>"
+            onReady={(editor) => {
+              // You can store the "editor" and use when it is needed.
+              console.log("Editor1 is ready to use!", editor);
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              console.log({ event, editor, data });
+            }}
+          />
+        </CKEditorContext>
+      </EditorContainer>
     </CardContainer>
   );
 };
