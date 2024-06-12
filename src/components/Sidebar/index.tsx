@@ -1,11 +1,16 @@
 import { useState } from "react";
-
-import styled from "styled-components";
+import { match } from "ts-pattern";
 
 import Slide from "@mui/material/Slide";
 
+import styled from "styled-components";
+
+import BodyCard from "./bodyCard";
+import ButtonCard from "./buttonCard";
+import HeaderCard from "./headerCard";
+import FooterCard from "./footerCard";
+
 import Button from "../../common/button";
-import Cards from "./cards";
 
 const StyledSlide = styled(Slide)`
   box-shadow: 1px 0px 0px 0px #00000014;
@@ -42,13 +47,14 @@ const Title = styled.div`
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
+
   const cardsList = [
     {
       name: "Header",
       id: "Header",
     },
     {
-      name: "Body Message ",
+      name: "Body Message",
       id: "Body",
     },
     {
@@ -74,7 +80,20 @@ const Sidebar = () => {
         </SidebarHeader>
         <Title>Content</Title>
         {cardsList.map((card) => {
-          return <Cards id={card.id} name={card.name} key={card.id} />;
+          return match(card.name)
+            .with("Header", () => (
+              <HeaderCard name={card.name} id={card.id} key={card.id} />
+            ))
+            .with("Body Message", () => (
+              <BodyCard name={card.name} id={card.id} key={card.id} />
+            ))
+            .with("Footer text", () => (
+              <FooterCard name={card.name} id={card.id} key={card.id} />
+            ))
+            .with("Buttons", () => (
+              <ButtonCard name={card.name} id={card.id} key={card.id} />
+            ))
+            .otherwise(() => null);
         })}
       </SidebarContainer>
     </StyledSlide>
