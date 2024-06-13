@@ -94,6 +94,7 @@ const HeaderCard = ({ name, id }: { name: string; id: string }) => {
 
   const handleFile = (event: any) => {
     let image = event.target.files[0];
+    const imageURL = URL.createObjectURL(image);
   };
 
   return (

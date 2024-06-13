@@ -8,7 +8,6 @@ const NavbarContainer = styled.div`
   color: #fff;
   background-color: #20232a;
   width: 56px;
-  height: 100vh;
 `;
 
 const Navbar = () => {

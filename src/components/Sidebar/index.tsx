@@ -14,7 +14,6 @@ import Button from "../../common/button";
 
 const StyledSlide = styled(Slide)`
   box-shadow: 1px 0px 0px 0px #00000014;
-  height: 85vh;
 `;
 
 const SidebarContainer = styled.div`

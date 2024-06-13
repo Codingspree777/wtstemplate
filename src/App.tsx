@@ -1,6 +1,5 @@
 import { Global, css } from "@emotion/react";
 
-import { DateDataProvider } from "./contexts/dateDataContext";
 import MessageLayout from "./components/Layout/messageLayout";
 
 const GlobalStyles = () => (
@@ -16,10 +15,10 @@ const GlobalStyles = () => (
 
 function App() {
   return (
-    <DateDataProvider>
+    <>
       <GlobalStyles />
       <MessageLayout />
-    </DateDataProvider>
+    </>
   );
 }
 
