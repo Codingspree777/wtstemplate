@@ -41,7 +41,24 @@ const Required = styled.div`
 `;
 
 const EditorContainer = styled.div`
+  .ck-editor__editable {
+    min-height: 338px;
+  }
   padding: 16px 24px;
+`;
+
+const VariableTipBox = styled.div`
+  width: 232px;
+  height: 163px
+  border-raidus: 8px;
+  background-color: #f5f5f5;
+  padding: 16px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 17px;
+  leter-spacing: 0.15px;
+  color: RGBA(0, 0, 0, 0.54);
+  margin: 16px 24px;
 `;
 
 const BodyCard = ({ name, id }: { name: string; id: string }) => {
@@ -78,6 +95,10 @@ const BodyCard = ({ name, id }: { name: string; id: string }) => {
           />
         </CKEditorContext>
       </EditorContainer>
+      <VariableTipBox>
+        Variables are dynamic content that help personalize your campaign, for
+        example: customer names or coupon codes.
+      </VariableTipBox>
     </CardContainer>
   );
 };
