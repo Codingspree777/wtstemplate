@@ -2,13 +2,14 @@ import { useState } from "react";
 import Switch from "@mui/material/Switch";
 import styled from "styled-components";
 
+import trashIcon from "../../assets/trash.svg";
+
 const CardContainer = styled.div`
   width: 312px;
   margin: 0 auto;
 
   border: 1px solid RGBA(0, 0, 0, 0.12);
   border-radius: 10px;
-  padding-bottom: 24px;
 `;
 
 const CardButton = styled.div`
@@ -30,6 +31,7 @@ const TextFieldContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
+  padding: 24px 0px;
 `;
 
 const StyledInputField = styled.input`
@@ -40,6 +42,14 @@ const StyledInputField = styled.input`
   padding: 16px;
 `;
 
+const FieldRemove = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 264px;
+`;
+
+const TrashIcon = styled.img``;
+
 const ButtonCard = ({ name, id }: { name: string; id: string }) => {
   const [checked, setChecked] = useState(false);
   const [buttons, setButton] = useState<Array<{ id: number; name: string }>>([
@@ -48,27 +58,49 @@ const ButtonCard = ({ name, id }: { name: string; id: string }) => {
     { id: 3, name: "Button 3" },
   ]);
 
-  const handleChange = () => {
+  const handleToggle = () => {
     setChecked(!checked);
+    setButton([
+      { id: 1, name: "Button 1" },
+      { id: 2, name: "Button 2" },
+      { id: 3, name: "Button 3" },
+    ]);
+  };
+
+  const handleTextField = (event: any) => {
+    console.log(event.target.value, "event");
+    console.log(event.target.id, "id");
   };
 
   return (
     <CardContainer>
       <CardButton id={id}>
         <Text>{name}</Text>
-        <Switch onChange={handleChange} id={id} />
+        <Switch onChange={handleToggle} id={id} />
       </CardButton>
-      <TextFieldContainer>
-        {checked &&
-          buttons.map((button) => (
+      {checked &&
+        buttons.map((button) => (
+          <TextFieldContainer key={button.id}>
+            <FieldRemove>
+              <Text>{button.name}</Text>
+              <TrashIcon
+                src={trashIcon}
+                alt="remove input field"
+                onClick={() =>
+                  setButton(buttons.filter((b) => b.id !== button.id))
+                }
+              />
+            </FieldRemove>
             <StyledInputField
               type="text"
               maxLength={25}
               key={button.id}
+              id={button.id.toString()}
               placeholder="Enter text"
+              onChange={(event) => handleTextField(event)}
             />
-          ))}
-      </TextFieldContainer>
+          </TextFieldContainer>
+        ))}
     </CardContainer>
   );
 };

@@ -10,7 +10,7 @@ import ButtonCard from "./buttonCard";
 import HeaderCard from "./headerCard";
 import FooterCard from "./footerCard";
 
-import Button from "../../common/button";
+import CloseButton from "../../common/button";
 
 const StyledSlide = styled(Slide)`
   box-shadow: 1px 0px 0px 0px #00000014;
@@ -71,31 +71,34 @@ const Sidebar = () => {
   };
 
   return (
-    <StyledSlide direction="right" in={open} mountOnEnter unmountOnExit>
-      <SidebarContainer>
-        <SidebarHeader>
-          <HeaderText>Edit Message</HeaderText>
-          <Button onClick={toggleDrawer(false)} />
-        </SidebarHeader>
-        <Title>Content</Title>
-        {cardsList.map((card) => {
-          return match(card.name)
-            .with("Header", () => (
-              <HeaderCard name={card.name} id={card.id} key={card.id} />
-            ))
-            .with("Body Message", () => (
-              <BodyCard name={card.name} id={card.id} key={card.id} />
-            ))
-            .with("Footer text", () => (
-              <FooterCard name={card.name} id={card.id} key={card.id} />
-            ))
-            .with("Buttons", () => (
-              <ButtonCard name={card.name} id={card.id} key={card.id} />
-            ))
-            .otherwise(() => null);
-        })}
-      </SidebarContainer>
-    </StyledSlide>
+    <>
+      <StyledSlide direction="right" in={open} mountOnEnter unmountOnExit>
+        <SidebarContainer>
+          <SidebarHeader>
+            <HeaderText>Edit Message</HeaderText>
+            <CloseButton onClick={toggleDrawer(false)} />
+          </SidebarHeader>
+          <Title>Content</Title>
+          {cardsList.map((card) => {
+            return match(card.name)
+              .with("Header", () => (
+                <HeaderCard name={card.name} id={card.id} key={card.id} />
+              ))
+              .with("Body Message", () => (
+                <BodyCard name={card.name} id={card.id} key={card.id} />
+              ))
+              .with("Footer text", () => (
+                <FooterCard name={card.name} id={card.id} key={card.id} />
+              ))
+              .with("Buttons", () => (
+                <ButtonCard name={card.name} id={card.id} key={card.id} />
+              ))
+              .otherwise(() => null);
+          })}
+        </SidebarContainer>
+      </StyledSlide>
+      {!open && <div>Edit Message</div>}
+    </>
   );
 };
 

@@ -8,10 +8,10 @@ const NavbarContainer = styled.div`
   color: #fff;
   background-color: #20232a;
   width: 56px;
+  min-height: 100vh;
 `;
 
 const Navbar = () => {
-  console.log(process.env.FIREBASE_API_KEY);
   return <NavbarContainer>Nav</NavbarContainer>;
 };
 
