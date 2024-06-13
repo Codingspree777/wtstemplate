@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore/lite";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBH6D5rvTcY_0i-Bc_nhmrMhViHS7FKwfU",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "take-home-wts-template.firebaseapp.com",
   projectId: "take-home-wts-template",
   storageBucket: "take-home-wts-template.appspot.com",

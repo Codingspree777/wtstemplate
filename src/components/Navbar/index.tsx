@@ -11,6 +11,7 @@ const NavbarContainer = styled.div`
 `;
 
 const Navbar = () => {
+  console.log(process.env.FIREBASE_API_KEY);
   return <NavbarContainer>Nav</NavbarContainer>;
 };
 
