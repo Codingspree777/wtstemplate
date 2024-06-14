@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { match } from "ts-pattern";
 
+import Button from "@mui/material/Button";
 import Slide from "@mui/material/Slide";
 
 import styled from "styled-components";
@@ -42,6 +43,24 @@ const Title = styled.div`
   font-size: 16px;
   color: RGBA(0, 0, 0, 0.87);
   padding: 24px 24px 0 24px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  padding-bottom: 24px;
+`;
+
+const SaveButton = styled(Button)`
+  width: 312px;
+`;
+const DeteleButton = styled(Button)`
+  width: 312px;
 `;
 
 const Sidebar = () => {
@@ -95,6 +114,10 @@ const Sidebar = () => {
               ))
               .otherwise(() => null);
           })}
+          <ButtonContainer>
+            <SaveButton variant="contained">Save</SaveButton>
+            <DeteleButton variant="outlined">Delete</DeteleButton>
+          </ButtonContainer>
         </SidebarContainer>
       </StyledSlide>
       {!open && <div>Edit Message</div>}
