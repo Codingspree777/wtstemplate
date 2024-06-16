@@ -3,8 +3,7 @@ import {
   getFirestore,
   collection,
   getDocs,
-  doc,
-  setDoc,
+  addDoc,
 } from "firebase/firestore/lite";
 
 const firebaseConfig = {
@@ -22,12 +21,9 @@ const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
-const messageRef = collection(db, "messages");
-
-export const editMessage = async (messageId: string, message: any) => {
+export const editMessage = async () => {
   // Update the message with the new message
-  await setDoc(doc(messageRef, "message1001"), {
-    id: "message1001",
+  const docRef = await addDoc(collection(db, "messages"), {
     components: [
       {
         type: "header",
@@ -35,7 +31,7 @@ export const editMessage = async (messageId: string, message: any) => {
           {
             type: "image",
             image: {
-              link: "https://URL",
+              link: "www.example.com",
             },
           },
         ],
@@ -44,7 +40,7 @@ export const editMessage = async (messageId: string, message: any) => {
         type: "BODY",
         text: "Shop now through {{1}} and use code {{2}} to get {{3}} off of all merchandise.",
         example: {
-          body_text: [["the end of April", "25OFF", "25%"]],
+          body_text: { text: ["the end of April", "25OFF", "25%"] },
         },
       },
       {
@@ -66,6 +62,7 @@ export const editMessage = async (messageId: string, message: any) => {
       },
     ],
   });
+  console.log("Document written with ID: ", docRef.id);
 };
 
 // // Get a list of cities from your database

@@ -50,20 +50,34 @@ const FieldRemove = styled.div`
 
 const TrashIcon = styled.img``;
 
-const ButtonCard = ({ name, id }: { name: string; id: string }) => {
+type ButtonCardProps = {
+  components: Array<any>;
+  name: string;
+  id: string;
+  setComponents: (components: any) => void;
+};
+
+const ButtonCard = ({
+  components,
+  id,
+  name,
+  setComponents,
+}: ButtonCardProps) => {
   const [checked, setChecked] = useState(false);
-  const [buttons, setButton] = useState<Array<{ id: number; name: string }>>([
-    { id: 1, name: "Button 1" },
-    { id: 2, name: "Button 2" },
-    { id: 3, name: "Button 3" },
+  const [buttons, setButton] = useState<
+    Array<{ id: number; name: string; text: string }>
+  >([
+    { id: 1, name: "Button 1", text: "" },
+    { id: 2, name: "Button 2", text: "" },
+    { id: 3, name: "Button 3", text: "" },
   ]);
 
   const handleToggle = () => {
     setChecked(!checked);
     setButton([
-      { id: 1, name: "Button 1" },
-      { id: 2, name: "Button 2" },
-      { id: 3, name: "Button 3" },
+      { id: 1, name: "Button 1", text: "" },
+      { id: 2, name: "Button 2", text: "" },
+      { id: 3, name: "Button 3", text: "" },
     ]);
   };
 

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { match } from "ts-pattern";
 
+import { editMessage } from "../../apis/firebase";
+
 import Button from "@mui/material/Button";
 import Slide from "@mui/material/Slide";
 
@@ -65,6 +67,12 @@ const DeteleButton = styled(Button)`
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
+  const [components, setComponents] = useState<Array<any>>([]);
+
+  const handleSave = () => {
+    // editMessage();
+    console.log("save");
+  };
 
   const cardsList = [
     {
@@ -89,6 +97,8 @@ const Sidebar = () => {
     setOpen(newOpen);
   };
 
+  console.log(components, "components");
+
   return (
     <>
       <StyledSlide direction="right" in={open} mountOnEnter unmountOnExit>
@@ -101,7 +111,13 @@ const Sidebar = () => {
           {cardsList.map((card) => {
             return match(card.name)
               .with("Header", () => (
-                <HeaderCard name={card.name} id={card.id} key={card.id} />
+                <HeaderCard
+                  name={card.name}
+                  id={card.id}
+                  key={card.id}
+                  components={components}
+                  setComponents={setComponents}
+                />
               ))
               .with("Body Message", () => (
                 <BodyCard name={card.name} id={card.id} key={card.id} />
@@ -110,12 +126,20 @@ const Sidebar = () => {
                 <FooterCard name={card.name} id={card.id} key={card.id} />
               ))
               .with("Buttons", () => (
-                <ButtonCard name={card.name} id={card.id} key={card.id} />
+                <ButtonCard
+                  name={card.name}
+                  id={card.id}
+                  key={card.id}
+                  components={components}
+                  setComponents={setComponents}
+                />
               ))
               .otherwise(() => null);
           })}
           <ButtonContainer>
-            <SaveButton variant="contained">Save</SaveButton>
+            <SaveButton variant="contained" onClick={handleSave}>
+              Save
+            </SaveButton>
             <DeteleButton variant="outlined">Delete</DeteleButton>
           </ButtonContainer>
         </SidebarContainer>
