@@ -68,6 +68,13 @@ const DeteleButton = styled(Button)`
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const [components, setComponents] = useState<Array<any>>([]);
+  const [buttons, setButton] = useState<
+    Array<{ id: number; name: string; text: string }>
+  >([
+    { id: 1, name: "Button 1", text: "" },
+    { id: 2, name: "Button 2", text: "" },
+    { id: 3, name: "Button 3", text: "" },
+  ]);
 
   const handleSave = () => {
     // editMessage();
@@ -97,7 +104,7 @@ const Sidebar = () => {
     setOpen(newOpen);
   };
 
-  console.log(components, "components");
+  console.log(buttons, "components");
 
   return (
     <>
@@ -127,6 +134,8 @@ const Sidebar = () => {
               ))
               .with("Buttons", () => (
                 <ButtonCard
+                  buttons={buttons}
+                  setButton={setButton}
                   name={card.name}
                   id={card.id}
                   key={card.id}

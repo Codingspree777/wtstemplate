@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Switch from "@mui/material/Switch";
 import styled from "styled-components";
 
 import trashIcon from "../../assets/trash.svg";
+import { set } from "firebase/database";
 
 const CardContainer = styled.div`
   width: 312px;
@@ -51,6 +52,8 @@ const FieldRemove = styled.div`
 const TrashIcon = styled.img``;
 
 type ButtonCardProps = {
+  buttons: Array<{ id: number; name: string; text: string }>;
+  setButton: (button: any) => void;
   components: Array<any>;
   name: string;
   id: string;
@@ -58,19 +61,14 @@ type ButtonCardProps = {
 };
 
 const ButtonCard = ({
+  buttons,
+  setButton,
   components,
   id,
   name,
   setComponents,
 }: ButtonCardProps) => {
   const [checked, setChecked] = useState(false);
-  const [buttons, setButton] = useState<
-    Array<{ id: number; name: string; text: string }>
-  >([
-    { id: 1, name: "Button 1", text: "" },
-    { id: 2, name: "Button 2", text: "" },
-    { id: 3, name: "Button 3", text: "" },
-  ]);
 
   const handleToggle = () => {
     setChecked(!checked);
@@ -82,8 +80,13 @@ const ButtonCard = ({
   };
 
   const handleTextField = (event: any) => {
-    console.log(event.target.value, "event");
-    console.log(event.target.id, "id");
+    const newText = buttons.map((button) => {
+      if (button.id === parseInt(event.target.id)) {
+        return { ...button, text: event.target.value };
+      }
+      return button;
+    });
+    setButton(newText);
   };
 
   return (
