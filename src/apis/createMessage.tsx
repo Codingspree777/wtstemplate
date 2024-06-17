@@ -1,10 +1,5 @@
 import { initializeApp } from "firebase/app";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  addDoc,
-} from "firebase/firestore/lite";
+import { getFirestore, collection, addDoc } from "firebase/firestore/lite";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -44,7 +39,7 @@ interface MessageData {
   }>;
 }
 
-export const editMessage = async (message: Message) => {
+export const createMessage = async (message: Message) => {
   // Update the message with the new message
   let payload: MessageData;
   payload = {

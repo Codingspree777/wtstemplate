@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { match } from "ts-pattern";
 
-import { editMessage } from "../../apis/firebase";
+import { editMessage } from "../../apis/editMessage";
+import { createMessage } from "../../apis/createMessage";
 
 import Button from "@mui/material/Button";
 import Slide from "@mui/material/Slide";
@@ -83,8 +84,6 @@ const Sidebar = () => {
       return alert("Please enter a body message");
     }
 
-    console.log(buttons, "buttons");
-
     const message = {
       header: headerText,
       body: bodyText,
@@ -92,6 +91,7 @@ const Sidebar = () => {
       buttons: buttons,
     };
     editMessage(message);
+    // createMessage(message);
   };
 
   const cardsList = [
