@@ -67,7 +67,9 @@ const DeteleButton = styled(Button)`
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
-  const [components, setComponents] = useState<Array<any>>([]);
+  const [headerText, setHeaderText] = useState<string>("");
+  const [bodyText, setBodyText] = useState<string>("");
+  const [footerText, setFooterText] = useState<string>("");
   const [buttons, setButton] = useState<
     Array<{ id: number; name: string; text: string }>
   >([
@@ -77,8 +79,19 @@ const Sidebar = () => {
   ]);
 
   const handleSave = () => {
-    // editMessage();
-    console.log("save");
+    if (bodyText === "") {
+      return alert("Please enter a body message");
+    }
+
+    console.log(buttons, "buttons");
+
+    const message = {
+      header: headerText,
+      body: bodyText,
+      footer: footerText,
+      buttons: buttons,
+    };
+    editMessage(message);
   };
 
   const cardsList = [
@@ -104,8 +117,6 @@ const Sidebar = () => {
     setOpen(newOpen);
   };
 
-  console.log(buttons, "components");
-
   return (
     <>
       <StyledSlide direction="right" in={open} mountOnEnter unmountOnExit>
@@ -119,28 +130,35 @@ const Sidebar = () => {
             return match(card.name)
               .with("Header", () => (
                 <HeaderCard
-                  name={card.name}
                   id={card.id}
                   key={card.id}
-                  components={components}
-                  setComponents={setComponents}
+                  name={card.name}
+                  setHeaderText={setHeaderText}
                 />
               ))
               .with("Body Message", () => (
-                <BodyCard name={card.name} id={card.id} key={card.id} />
+                <BodyCard
+                  id={card.id}
+                  key={card.id}
+                  name={card.name}
+                  setBodyText={setBodyText}
+                />
               ))
               .with("Footer text", () => (
-                <FooterCard name={card.name} id={card.id} key={card.id} />
+                <FooterCard
+                  id={card.id}
+                  key={card.id}
+                  name={card.name}
+                  setFooterText={setFooterText}
+                />
               ))
               .with("Buttons", () => (
                 <ButtonCard
                   buttons={buttons}
-                  setButton={setButton}
-                  name={card.name}
                   id={card.id}
                   key={card.id}
-                  components={components}
-                  setComponents={setComponents}
+                  name={card.name}
+                  setButton={setButton}
                 />
               ))
               .otherwise(() => null);

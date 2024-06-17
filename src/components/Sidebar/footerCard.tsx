@@ -57,7 +57,13 @@ const VariableTipBox = styled.div`
   margin: 16px 24px;
 `;
 
-const FooterCard = ({ name, id }: { name: string; id: string }) => {
+type FooterCardProps = {
+  id: string;
+  name: string;
+  setFooterText: (footerText: string) => void;
+};
+
+const FooterCard = ({ id, name, setFooterText }: FooterCardProps) => {
   const [checked, setChecked] = useState(false);
 
   const handleChange = () => {
@@ -87,14 +93,10 @@ const FooterCard = ({ name, id }: { name: string; id: string }) => {
                   ],
                   toolbar: ["bold", "italic", "strikethrough", "code"],
                 }}
-                data="<p>Hello from the first editor working with the context!</p>"
-                onReady={(editor) => {
-                  // You can store the "editor" and use when it is needed.
-                  console.log("Editor1 is ready to use!", editor);
-                }}
+                data=""
                 onChange={(event, editor) => {
                   const data = editor.getData();
-                  console.log({ event, editor, data });
+                  setFooterText(data);
                 }}
               />
             </CKEditorContext>

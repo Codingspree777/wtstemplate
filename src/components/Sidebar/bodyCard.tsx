@@ -61,7 +61,13 @@ const VariableTipBox = styled.div`
   margin: 16px 24px;
 `;
 
-const BodyCard = ({ name, id }: { name: string; id: string }) => {
+type BodyCardProps = {
+  id: string;
+  name: string;
+  setBodyText: (text: string) => void;
+};
+
+const BodyCard = ({ id, name, setBodyText }: BodyCardProps) => {
   return (
     <CardContainer id={id}>
       <HeaderContainer>
@@ -83,14 +89,10 @@ const BodyCard = ({ name, id }: { name: string; id: string }) => {
               ],
               toolbar: ["bold", "italic", "strikethrough", "code"],
             }}
-            data="<p>Hello from the first editor working with the context!</p>"
-            onReady={(editor) => {
-              // You can store the "editor" and use when it is needed.
-              console.log("Editor1 is ready to use!", editor);
-            }}
+            data=""
             onChange={(event, editor) => {
               const data = editor.getData();
-              console.log({ event, editor, data });
+              setBodyText(data);
             }}
           />
         </CKEditorContext>

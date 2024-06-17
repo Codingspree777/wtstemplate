@@ -21,103 +21,90 @@ const app = initializeApp(firebaseConfig);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
-export const editMessage = async () => {
+interface Message {
+  header?: string;
+  body: string;
+  footer?: string;
+  buttons?: Array<{ id: number; name: string; text: string }>;
+}
+
+interface MessageData {
+  components: Array<{
+    type: string;
+    sub_type?: string;
+    index?: string;
+    parameters: Array<{
+      type: string;
+      text?: string;
+      image?: {
+        link: string;
+      };
+      payload?: string;
+    }>;
+  }>;
+}
+
+export const editMessage = async (message: Message) => {
   // Update the message with the new message
-  const docRef = await addDoc(collection(db, "messages"), {
+  let payload: MessageData;
+  payload = {
     components: [
       {
-        type: "header",
+        type: "BODY",
         parameters: [
           {
-            type: "image",
-            image: {
-              link: "www.example.com",
-            },
-          },
-        ],
-      },
-      {
-        type: "BODY",
-        text: "Shop now through {{1}} and use code {{2}} to get {{3}} off of all merchandise.",
-        example: {
-          body_text: { text: ["the end of April", "25OFF", "25%"] },
-        },
-      },
-      {
-        type: "FOOTER",
-        text: "Use the buttons below to manage your marketing subscriptions",
-      },
-      {
-        type: "BUTTONS",
-        buttons: [
-          {
-            type: "QUICK_REPLY",
-            text: "Unsubcribe from Promos",
-          },
-          {
-            type: "QUICK_REPLY",
-            text: "Unsubscribe from All",
+            type: "text",
+            text: message.body,
           },
         ],
       },
     ],
-  });
+  };
+
+  if (message.header) {
+    payload.components.push({
+      type: "header",
+      parameters: [
+        {
+          type: "image",
+          image: {
+            link: message.header,
+          },
+        },
+      ],
+    });
+  }
+
+  if (message.footer) {
+    payload.components.push({
+      type: "FOOTER",
+      parameters: [
+        {
+          type: "text",
+          text: message.footer,
+        },
+      ],
+    });
+  }
+
+  if (message?.buttons?.length ?? 0 > 0) {
+    message?.buttons?.forEach((button) => {
+      if (button.text !== "") {
+        payload.components.push({
+          type: "button",
+          sub_type: "quick_reply",
+          index: button.id.toString(),
+          parameters: [
+            {
+              type: "payload",
+              payload: button.text,
+            },
+          ],
+        });
+      }
+    });
+  }
+
+  const docRef = await addDoc(collection(db, "messages"), payload);
   console.log("Document written with ID: ", docRef.id);
 };
-
-// // Get a list of cities from your database
-// export async function getCities(db: any) {
-//   const citiesCol = collection(db, "cities");
-//   const citySnapshot = await getDocs(citiesCol);
-//   const cityList = citySnapshot.docs.map((doc) => doc.data());
-//   return cityList;
-// }
-
-// curl 'https://graph.facebook.com/v20.0/564750795574598' \
-// -H 'Content-Type: application/json' \
-// -H 'Authorization: Bearer EAAJB...' \
-// -d '
-// {
-//   "components": [
-//     {
-//       "type": "HEADER",
-//       "format": "TEXT",
-//       "text": "Our {{1}} is on!",
-//       "example": {
-//         "header_text": [
-//           "Spring Sale"
-//         ]
-//       }
-//     },
-//     {
-//       "type": "BODY",
-//       "text": "Shop now through {{1}} and use code {{2}} to get {{3}} off of all merchandise.",
-//       "example": {
-//         "body_text": [
-//           [
-//             "the end of April",
-//             "25OFF",
-//             "25%"
-//           ]
-//         ]
-//       }
-//     },
-//     {
-//       "type": "FOOTER",
-//       "text": "Use the buttons below to manage your marketing subscriptions"
-//     },
-//     {
-//       "type": "BUTTONS",
-//       "buttons": [
-//         {
-//           "type": "QUICK_REPLY",
-//           "text": "Unsubcribe from Promos"
-//         },
-//         {
-//           "type": "QUICK_REPLY",
-//           "text": "Unsubscribe from All"
-//         }
-//       ]
-//     }
-//   ]
-// }'

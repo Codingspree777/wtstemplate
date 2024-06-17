@@ -53,21 +53,12 @@ const TrashIcon = styled.img``;
 
 type ButtonCardProps = {
   buttons: Array<{ id: number; name: string; text: string }>;
-  setButton: (button: any) => void;
-  components: Array<any>;
-  name: string;
   id: string;
-  setComponents: (components: any) => void;
+  name: string;
+  setButton: (button: any) => void;
 };
 
-const ButtonCard = ({
-  buttons,
-  setButton,
-  components,
-  id,
-  name,
-  setComponents,
-}: ButtonCardProps) => {
+const ButtonCard = ({ buttons, id, name, setButton }: ButtonCardProps) => {
   const [checked, setChecked] = useState(false);
 
   const handleToggle = () => {

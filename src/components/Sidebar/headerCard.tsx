@@ -85,18 +85,12 @@ const HeaderTipBox = styled.div`
 `;
 
 type HeaderCardProps = {
-  components: Array<any>;
-  name: string;
   id: string;
-  setComponents: (components: any) => void;
+  name: string;
+  setHeaderText: (url: string) => void;
 };
 
-const HeaderCard = ({
-  components,
-  name,
-  id,
-  setComponents,
-}: HeaderCardProps) => {
+const HeaderCard = ({ id, name, setHeaderText }: HeaderCardProps) => {
   const [checked, setChecked] = useState(false);
   const [selectValue, setSelectValue] = useState("Image");
 
@@ -107,20 +101,7 @@ const HeaderCard = ({
   const handleFile = (event: any) => {
     let image = event.target.files[0];
     const imageURL = URL.createObjectURL(image);
-    setComponents([
-      ...components,
-      {
-        type: "header",
-        parameters: [
-          {
-            type: "image",
-            image: {
-              link: imageURL,
-            },
-          },
-        ],
-      },
-    ]);
+    setHeaderText(imageURL);
   };
 
   return (
