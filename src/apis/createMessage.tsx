@@ -45,7 +45,7 @@ export const createMessage = async (message: Message) => {
   payload = {
     components: [
       {
-        type: "BODY",
+        type: "body",
         parameters: [
           {
             type: "text",
@@ -72,7 +72,7 @@ export const createMessage = async (message: Message) => {
 
   if (message.footer) {
     payload.components.push({
-      type: "FOOTER",
+      type: "footer",
       parameters: [
         {
           type: "text",

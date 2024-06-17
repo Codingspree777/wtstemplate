@@ -2,7 +2,7 @@ import { useState } from "react";
 import { match } from "ts-pattern";
 
 import { editMessage } from "../../apis/editMessage";
-import { createMessage } from "../../apis/createMessage";
+// import { createMessage } from "../../apis/createMessage";
 
 import Button from "@mui/material/Button";
 import Slide from "@mui/material/Slide";
@@ -68,7 +68,7 @@ const DeteleButton = styled(Button)`
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
-  const [headerText, setHeaderText] = useState<string>("");
+  const [headerText, setHeaderText] = useState<string>();
   const [bodyText, setBodyText] = useState<string>("");
   const [footerText, setFooterText] = useState<string>("");
   const [buttons, setButton] = useState<

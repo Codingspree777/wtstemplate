@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Switch from "@mui/material/Switch";
 import styled from "styled-components";
 
 import trashIcon from "../../assets/trash.svg";
-import { set } from "firebase/database";
 
 const CardContainer = styled.div`
   width: 312px;
