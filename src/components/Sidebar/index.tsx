@@ -79,7 +79,7 @@ const Sidebar = () => {
     { id: 3, name: "Button 3", text: "" },
   ]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (bodyText === "") {
       return alert("Please enter a body message");
     }
@@ -90,8 +90,13 @@ const Sidebar = () => {
       footer: footerText,
       buttons: buttons,
     };
-    editMessage(message);
-    // createMessage(message);
+    try {
+      await editMessage(message);
+      // await createMessage(message);
+      location.reload();
+    } catch {
+      console.log("error saving");
+    }
   };
 
   const cardsList = [

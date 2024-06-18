@@ -13,6 +13,10 @@ import SectionTags from "../../common/sectionTags";
 import messageIcon from "../../assets/message.svg";
 import graph from "../../assets/graph.jpeg";
 
+import model from "../../assets/model.jpeg";
+import purse from "../../assets/purse.jpeg";
+import wallet from "../../assets/wallet.jpeg";
+
 const PreviewMessageContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -50,7 +54,7 @@ const Display = styled.div`
   justify-content: center;
   align-items: center;
   width: 280px;
-  height: 352px;
+
   background-color: #f5f5f5;
   margin: 0 auto;
   padding: 20px 0px;
@@ -61,7 +65,7 @@ const Message = styled.div`
   flex-direction: column;
   gap: 4px;
   width: 233px;
-  height: 274px;
+
   background-color: #ffffff;
 `;
 
@@ -155,8 +159,18 @@ const PreviewMessage = () => {
   }, []);
 
   const fetchImage = (image: string) => {
-    return image;
+    let link = "";
+
+    if (image.includes("wallet")) {
+      link = wallet;
+    } else if (image.includes("purse")) {
+      link = purse;
+    } else if (image.includes("model")) {
+      link = model;
+    }
+    return <HeaderImage src={link} />;
   };
+
   return (
     <PreviewMessageContainer>
       <DisplayContainer>
@@ -171,16 +185,13 @@ const PreviewMessage = () => {
                 (section: { type: string; image?: string; text?: string }) => {
                   return match(section.type)
                     .with("header", () => (
-                      <SectionContainer>
+                      <SectionContainer key={section.type}>
                         <SectionTags>Header</SectionTags>
-                        <HeaderImage
-                          src={fetchImage(section.image as string)}
-                          width="100%"
-                        />
+                        {fetchImage(section.image as string)}
                       </SectionContainer>
                     ))
                     .with("body", () => (
-                      <SectionContainer>
+                      <SectionContainer key={section.type}>
                         <SectionTags>Body</SectionTags>
                         <BodyMessage>
                           {parse(section.text as string)}
@@ -188,7 +199,7 @@ const PreviewMessage = () => {
                       </SectionContainer>
                     ))
                     .with("footer", () => (
-                      <SectionContainer>
+                      <SectionContainer key={section.type}>
                         <SectionTags>Footer</SectionTags>
                         <FooterMessage>
                           {parse(section.text as string)}
@@ -204,7 +215,7 @@ const PreviewMessage = () => {
             message.map((section: { type: string; payload?: string }) => {
               return match(section.type)
                 .with("button", () => (
-                  <SectionContainer>
+                  <SectionContainer key={section.payload}>
                     <Button
                       variant="outlined"
                       sx={{

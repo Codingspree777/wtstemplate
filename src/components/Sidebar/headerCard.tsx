@@ -98,10 +98,12 @@ const HeaderCard = ({ id, name, setHeaderText }: HeaderCardProps) => {
     setChecked(!checked);
   };
 
-  const handleFile = async (event: any) => {
+  const handleFile = (event: any) => {
     let image = event.target.files[0];
+
     const imageURL = URL.createObjectURL(image);
-    setHeaderText(imageURL);
+
+    setHeaderText(imageURL + event.target.files[0].name);
   };
 
   return (
