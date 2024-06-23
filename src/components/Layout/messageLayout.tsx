@@ -1,8 +1,11 @@
 import styled from "styled-components";
+
 import Header from "../Header";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 import PreviewMessage from "../PreviewMessage";
+
+import usePosts from "../../queries/exampleQuery";
 
 const Container = styled.main`
   display: flex;
@@ -16,6 +19,10 @@ const MessageCreation = styled.div`
 `;
 
 const MessageLayout = () => {
+  const { status, data, error, isFetching } = usePosts();
+
+  console.log(status, data, error, isFetching);
+
   return (
     <Container>
       <Navbar />
